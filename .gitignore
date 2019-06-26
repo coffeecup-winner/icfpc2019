@@ -7,3 +7,11 @@ solutions
 lambda-client/blocks
 lambda-client/*.sol
 *.sol.tmp
+
+
+#Added by cargo
+#
+#already existing elements are commented out
+
+/target
+**/*.rs.bk
