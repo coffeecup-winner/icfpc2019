@@ -13,9 +13,11 @@ trait Problem {
     type State: State;
     type Error;
 
+    type StateAction = <Self::State as State>::Action;
+
     fn load_state(data: Vec<u8>) -> Self::State;
-    fn save_solution(solution: Vec<<<Self as crate::core::Problem>::State as State>::Action>) -> Vec<u8>;
-    fn score_solution(solution: Vec<<<Self as crate::core::Problem>::State as State>::Action>) -> Result<u64, Self::Error>;
+    fn save_solution(solution: Vec<Self::StateAction>) -> Vec<u8>;
+    fn score_solution(solution: Vec<Self::StateAction>) -> Result<u64, Self::Error>;
 }
 
 trait Strategy {
