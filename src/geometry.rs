@@ -1,16 +1,16 @@
 use std::ops;
 
-#[derive(PartialEq, Eq, Clone, Copy, Debug)]
-struct Point2D {
-    x: i32,
-    y: i32,
+#[derive(PartialEq, Eq, Clone, Copy, Hash, Debug)]
+pub struct Point2D {
+    pub x: i32,
+    pub y: i32,
 }
 
 impl Point2D {
     pub fn new(x: i32, y: i32) -> Point2D {
         return Point2D {
-            x: x,
-            y: y,
+            x,
+            y,
         }
     }
 }
@@ -53,4 +53,11 @@ fn test_point2d() {
     assert_eq!(Point2D::new(-1, 1) + Point2D::new(1, 1), Point2D::new(0, 2));
     assert_eq!(Point2D::new(1, 1) - Point2D::new(1, -1), Point2D::new(0, 2));
     assert_eq!(Point2D::new(2, 3) * Point2D::new(-2, 4), 8);
+}
+
+pub enum Orientation {
+    Left,
+    Up,
+    Right,
+    Down,
 }
