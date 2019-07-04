@@ -10,7 +10,7 @@ use crate::state::{Booster, BoosterType, State};
 pub struct Problem;
 
 impl Problem {
-    pub fn parse(mut s: String) -> State {
+    pub fn parse(s: &str) -> State {
         let raw_parts = s.split('#').collect::<Vec<&str>>();
         assert_eq!(raw_parts.len(), 4);
         let raw_map = raw_parts[0];
@@ -19,14 +19,10 @@ impl Problem {
         let raw_boosters = raw_parts[3];
         
         let obstacles = raw_obstacles.split(';')
-            .collect::<Vec<&str>>()
-            .into_iter()
             .filter(|s| s.len() > 0)
             .map(|s| Poly::new(Self::parse_points(s)))
             .collect::<Vec<_>>();
         let boosters = raw_boosters.split(';')
-            .collect::<Vec<&str>>()
-            .into_iter()
             .filter(|s| s.len() > 0)
             .map(|s| Self::parse_booster(s))
             .collect::<Vec<_>>();
@@ -146,7 +142,7 @@ impl Poly {
                 if !verticals.contains_key(&a.x) {
                     verticals.insert(a.x, vec![]);
                 }
-                verticals.get_mut(&a.x).unwrap().push(Vertical { x: a.x, min_y: cmp::min(a.y, b.y), max_y: cmp::max(a.y, b.y) })
+                verticals.get_mut(&a.x).unwrap().push(Vertical { min_y: cmp::min(a.y, b.y), max_y: cmp::max(a.y, b.y) })
             }
         }
 
@@ -173,7 +169,6 @@ impl Poly {
 }
 
 struct Vertical {
-    x: i32,
     min_y: i32,
     max_y: i32,
 }

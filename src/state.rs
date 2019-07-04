@@ -65,11 +65,11 @@ impl State {
         }
     }
 
-    fn max_points(&self) -> u32 {
+    pub fn max_points(&self) -> u32 {
         (1000.0 * ((self.grid.width * self.grid.height) as f64).log2()).ceil() as u32
     }
 
-    fn has_wrappable_cells(&self) -> bool {
+    pub fn has_wrappable_cells(&self) -> bool {
         self.grid.num_free > 0
     }
 }
