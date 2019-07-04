@@ -2,12 +2,12 @@
 out
 .gradle
 build
-out
+.vscode
+
 solutions
 lambda-client/blocks
 lambda-client/*.sol
 *.sol.tmp
-
 
 #Added by cargo
 #
