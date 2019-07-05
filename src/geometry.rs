@@ -13,6 +13,10 @@ impl Point2D {
             y,
         }
     }
+
+    pub fn manhattan_dist(&self, p: Point2D) -> i32 {
+        (self.x - p.x).abs() + (self.y - p.y).abs()
+    }
 }
 
 impl ops::Neg for Point2D {
@@ -53,11 +57,4 @@ fn test_point2d() {
     assert_eq!(Point2D::new(-1, 1) + Point2D::new(1, 1), Point2D::new(0, 2));
     assert_eq!(Point2D::new(1, 1) - Point2D::new(1, -1), Point2D::new(0, 2));
     assert_eq!(Point2D::new(2, 3) * Point2D::new(-2, 4), 8);
-}
-
-pub enum Orientation {
-    Left,
-    Up,
-    Right,
-    Down,
 }

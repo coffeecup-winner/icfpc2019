@@ -11,6 +11,15 @@ pub enum GridCell {
     Free,
 }
 
+impl GridCell {
+    pub fn is_obstacle(&self) -> bool {
+        match self {
+            GridCell::Obstacle | GridCell::Void => true,
+            _ => false
+        }
+    }
+}
+
 pub struct Grid {
     pub width: u16,
     pub height: u16,
@@ -42,7 +51,7 @@ impl Grid {
             GridCell::Wrapped => self.num_wrapped -= 1,
             GridCell::Free => self.num_free -= 1,
         }
-        self[p] = value;
+        self.grid[(p.y * self.width as i32 + p.x) as usize] = value;
         match value {
             GridCell::Obstacle => self.num_obstacles += 1,
             GridCell::Void => self.num_void += 1,
@@ -61,12 +70,6 @@ impl ops::Index<Point2D> for Grid {
 
     fn index(&self, p: Point2D) -> &Self::Output {
         &self.grid[(p.y * self.width as i32 + p.x) as usize]
-    }
-}
-
-impl ops::IndexMut<Point2D> for Grid {
-    fn index_mut(&mut self, p: Point2D) -> &mut Self::Output {
-        &mut self.grid[(p.y * self.width as i32 + p.x) as usize]
     }
 }
 

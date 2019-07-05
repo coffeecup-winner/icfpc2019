@@ -1,4 +1,5 @@
 #![feature(associated_type_defaults)]
+#![feature(vec_remove_item)]
 #[macro_use]
 extern crate lazy_static;
 extern crate regex;

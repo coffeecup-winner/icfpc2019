@@ -1,15 +1,15 @@
-trait State {
+pub trait State {
     type Action;
     type ReverseAction;
 
-    fn complete() -> bool;
-    fn agents_count() -> u32;
-    fn can_apply(agent_id: u32, action: Self::Action) -> bool;
-    fn apply(agent_id: u32, action: Self::Action) -> Self::ReverseAction;
-    fn unapply(agent_id: u32, reverse_action: Self::ReverseAction);
+    fn complete(&self) -> bool;
+    fn agents_count(&self) -> u32;
+    fn can_apply(&self, agent_id: u32, action: Self::Action) -> bool;
+    fn apply(&mut self, agent_id: u32, action: Self::Action) -> Self::ReverseAction;
+    fn unapply(&mut self, agent_id: u32, reverse_action: Self::ReverseAction) -> Self::Action;
 }
 
-trait Problem {
+pub trait Problem {
     type State: State;
     type Error;
 
@@ -20,7 +20,7 @@ trait Problem {
     fn score_solution(solution: Vec<Self::StateAction>) -> Result<u64, Self::Error>;
 }
 
-trait Strategy {
+pub trait Strategy {
     type State: State;
 
     fn name() -> String;
