@@ -33,8 +33,8 @@ impl Problem {
         assert_eq!(bottom_left.x, 0);
         assert_eq!(bottom_left.y, 0);
 
-        let width = top_right.y;
-        let height = top_right.x;
+        let width = top_right.x;
+        let height = top_right.y;
 
         let mut grid = Grid::new(width as u16, height as u16, GridCell::Void);
         map.project(&mut grid, GridCell::Free);
@@ -117,22 +117,6 @@ impl Poly {
         (Point2D::new(min_x, min_y), Point2D::new(max_x, max_y))
     }
 
-    pub fn contains(&self, p: Point2D) -> bool {
-        let mut count = 0;
-        for i in 0..self.contour.len() {
-            let a = self.contour[i];
-            let b = self.contour[(i + 1) % self.contour.len()];
-            if a.x == b.x {
-                if p.x < a.x && (a.y..b.y).contains(&p.y) {
-                    count += 1;
-                }
-            } else {
-                assert_eq!(a.y, b.y);
-            }
-        }
-        count % 2 == 0
-    }
-
     pub fn project(&self, grid: &mut Grid, cell: GridCell) {
         let mut verticals: HashMap<i32, Vec<Vertical>> = HashMap::new();
         for i in 0..self.contour.len() {
@@ -146,9 +130,9 @@ impl Poly {
             }
         }
 
-        for y in 0..grid.width as i32 {
+        for y in 0..grid.height as i32 {
             let mut count = 0;
-            for x in 0..grid.height as i32 {
+            for x in 0..grid.width as i32 {
                 match verticals.get(&x) {
                     Some(vs) => {
                         for v in vs.iter() {
