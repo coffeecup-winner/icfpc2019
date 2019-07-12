@@ -10,17 +10,15 @@ mod grid;
 mod problem;
 mod robot;
 mod state;
+mod terminal;
 
 use std::env;
-use std::fs::File;
-use std::io::prelude::*;
 
 use crate::problem::Problem;
+use crate::terminal::{Colorizable, TerminalColor};
 
 fn main() {
-    let mut file = File::open(env::args().into_iter().nth(1).unwrap()).unwrap();
-    let mut data = String::new();
-    file.read_to_string(&mut data).unwrap();
+    let data = std::fs::read_to_string(env::args().into_iter().nth(1).unwrap()).unwrap();
     let state = Problem::parse(&data);
-    println!("Max points: {}", state.max_points());
+    println!("{}", format!("Max points: {}", state.max_points()).colorize(TerminalColor::Yellow));
 }
