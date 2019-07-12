@@ -144,6 +144,10 @@ impl core::State for State {
     type Action = Action;
     type ReverseAction = ReverseAction;
 
+    fn info(&self) -> String {
+        format!("dim: {}x{}, max points: {}", self.grid.width, self.grid.height, self.max_points())
+    }
+
     fn complete(&self) -> bool {
         !self.has_wrappable_cells()
     }

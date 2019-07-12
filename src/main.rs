@@ -13,12 +13,19 @@ mod state;
 mod terminal;
 
 use std::env;
+use std::path::Path;
 
+use crate::core::State;
 use crate::problem::Problem;
 use crate::terminal::{Colorizable, TerminalColor};
 
-fn main() {
-    let data = std::fs::read_to_string(env::args().into_iter().nth(1).unwrap()).unwrap();
+fn solve(path: &Path) -> std::io::Result<()> {
+    let data = std::fs::read_to_string(path)?;
     let state = Problem::parse(&data);
-    println!("{}", format!("Max points: {}", state.max_points()).colorize(TerminalColor::Yellow));
+    println!("{}", format!("Solving {} ({})", path.display(), state.info()).colorize(TerminalColor::Magenta));
+    Ok(())
+}
+
+fn main() -> std::io::Result<()> {
+    solve(Path::new(&env::args().into_iter().nth(1).unwrap()))
 }

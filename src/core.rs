@@ -2,6 +2,7 @@ pub trait State {
     type Action;
     type ReverseAction;
 
+    fn info(&self) -> String;
     fn complete(&self) -> bool;
     fn agents_count(&self) -> u32;
     fn can_apply(&self, agent_id: u32, action: Self::Action) -> bool;
